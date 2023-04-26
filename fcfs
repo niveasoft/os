@@ -1,0 +1,37 @@
+#include<stdio.h>
+void main()
+{
+	int n;
+	printf("Enter the No. of Processes");
+	scanf("%d",&n);
+	int bt[50],wt[50];
+	for(int i=1;i<=n;i++)
+	{
+		printf("Enter the Burst Time for Processor %d:",i);
+		scanf("%d",&bt[i]);
+	}
+	
+	wt[0]=0;
+	
+	for(int i=1;i<=n;i++)
+	{
+		wt[i]=bt[i-1]+wt[i-1];
+	}
+	float twt=0.0,tat=0.0;
+	
+	for(int i=1;i<=n;i++)
+	{
+		twt+=wt[i];
+		tat+=(wt[i]+bt[i]);
+		printf("Burst Time of Processor %d        	: \t%d\n",i,bt[i]);
+		printf("Waiting Time of Processor %d      	: \t%d\n",i,wt[i]);
+		printf("Turn Around Time of Processor %d  	: \t%d\n",i,(bt[i]+wt[i]));
+	}
+	
+	printf("Total Waiting Time of Processors        : \t%f\n",twt);
+	printf("Total Turn Around Time of Processors    : \t%f\n",tat);
+	float awt=twt/n;
+	float att=tat/n;
+	printf("Average Waiting Time of Processors        : \t%f\n",awt);
+	printf("Average Turn Around Time of Processors    : \t%f\n",att);
+}
