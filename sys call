@@ -1,0 +1,31 @@
+#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+int main()
+{
+int n=fork();
+if (n&gt;0)
+printf(&quot;Parent process id is %d\n&quot;,getpid());
+else
+{
+printf(&quot;Child process id is %d\n&quot;,getpid());
+printf(&quot;Parent process id is %d\n&quot;,getppid());
+}
+}
+
+
+#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+void forkexample()
+{
+int x=1;
+if(fork()==0)
+printf(&quot;Child Process has x=%d\n&quot;,++x);
+else
+printf(&quot;Parent Process has x=%d\n&quot;,--x);
+
+}
+int main()
+{
+forkexample();
+}
