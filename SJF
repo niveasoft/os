@@ -1,0 +1,50 @@
+#include<stdio.h>
+void main()
+{
+	int n,temp;
+	printf("Enter the No. of Processes");
+	scanf("%d",&n);
+	int bt[50],wt[50];
+	for(int i=1;i<=n;i++)
+	{
+		printf("Enter the Burst Time for Process %d:",i);
+		scanf("%d",&bt[i]);
+	}
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(bt[j]>bt[j+1])
+			{
+				temp=bt[j];
+				bt[j]=bt[j+1];
+				bt[j+1]=temp;
+			}
+		}
+	}
+	
+	
+	wt[0]=0;
+	
+	for(int i=1;i<=n;i++)
+	{
+		wt[i]=bt[i-1]+wt[i-1];
+	}
+	float twt=0.0,tat=0.0;
+	
+	for(int i=1;i<=n;i++)
+	{
+		twt+=wt[i];
+		tat+=(wt[i]+bt[i]);
+		printf("Burst Time of Process %d        	: \t%d\n",i,bt[i]);
+		printf("Waiting Time of Process %d      	: \t%d\n",i,wt[i]);
+		printf("Turn Around Time of Process %d  	: \t%d\n",i,(bt[i]+wt[i]));
+	}
+	
+	printf("Total Waiting Time of Processs        : \t%f\n",twt);
+	printf("Total Turn Around Time of Processs    : \t%f\n",tat);
+	float awt=twt/n;
+	float att=tat/n;
+	printf("Average Waiting Time of Processs        : \t%f\n",awt);
+	printf("Average Turn Around Time of Processs    : \t%f\n",att);
+}
